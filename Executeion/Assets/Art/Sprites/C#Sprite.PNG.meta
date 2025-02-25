@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f82c30b117dc97e4482af7e605d9bd55
+guid: 70fcfe77de349704b8d36806d790f0de
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9051392935041009976
-    second: White2.0_0
+      213: 1230272182274849523
+    second: C#Sprite_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: White2.0_0
+      name: C#Sprite_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2480
-        height: 3508
+        width: 281
+        height: 306
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8c67668f41ef26280800000000000000
-      internalID: -9051392935041009976
+      spriteID: 3fa7981180ec21110800000000000000
+      internalID: 1230272182274849523
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      White2.0_0: -9051392935041009976
+      C#Sprite_0: 1230272182274849523
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

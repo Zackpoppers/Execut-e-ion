@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f82c30b117dc97e4482af7e605d9bd55
+guid: 02f23ac15e8037d4fb2ff4510625349f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9051392935041009976
-    second: White2.0_0
+      213: -503681345647339176
+    second: PythonSprite_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: White2.0_0
+      name: PythonSprite_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2480
-        height: 3508
+        width: 376
+        height: 376
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8c67668f41ef26280800000000000000
-      internalID: -9051392935041009976
+      spriteID: 85913b81c709209f0800000000000000
+      internalID: -503681345647339176
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      White2.0_0: -9051392935041009976
+      PythonSprite_0: -503681345647339176
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
