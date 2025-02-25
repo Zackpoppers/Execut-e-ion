@@ -1,24 +1,92 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     // Movement variables
+    public float currentSpeed;
     public float acceleration;
     public float airAcceleration;
     public float groundSpeed;
     public float airSpeed;
     public float jumpSpeed;
     [Range(0f, 1f)]
+    public float smoothedSpeed;
     public Rigidbody2D body;
     public BoxCollider2D groundCheck;
     public LayerMask groundMask;
     public float groundDecay;
     public bool isGrounded;
-    public float horizontalInput;
-    public float verticalInput;
+    public bool isPlayer1;
 
     // Input variables
-    public char downKey;
+    public Vector2 moveInput;
+    public PlayerControls playerControls;
+    public InputAction move;
+    public InputAction jump;
+    public InputAction down;
+
+    //Input Setup
+    private void Awake()
+    {
+        playerControls = new PlayerControls();
+    }
+
+    private void OnEnable()
+    {
+        if (isPlayer1)
+        {
+            move = playerControls.Player1.Move;
+            move.Enable();
+
+            jump = playerControls.Player1.Jump;
+            jump.Enable();
+            jump.performed += Jump;
+
+            down = playerControls.Player1.Down;
+            down.Enable();
+            down.performed += Down;
+        }
+        else
+        {
+            move = playerControls.Player2.Move;
+            move.Enable();
+
+            jump = playerControls.Player2.Jump;
+            jump.Enable();
+            jump.performed += Jump;
+
+            down = playerControls.Player2.Down;
+            down.Enable();
+            down.performed += Down;
+        }
+    }
+
+    private void OnDisable()
+    {
+        move.Disable();
+        jump.Disable();
+        down.Disable();
+    }
+
+    private void Jump(InputAction.CallbackContext context)
+    {
+        if (isGrounded)
+        {
+            body.linearVelocity = new Vector2(body.linearVelocityX, jumpSpeed);
+            isGrounded = false;
+        }
+    }
+
+    private void Down(InputAction.CallbackContext context)
+    {
+        if (!isGrounded)
+        {
+            float increment = body.linearVelocityY * acceleration;
+            body.linearVelocity = new Vector2(body.linearVelocityX + increment, -jumpSpeed * 1.5f);
+        }
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,31 +97,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetInput();
-        HandleJump();
-    }
-
-
-    void HandleJump()
-    {
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            body.linearVelocity = new Vector2(body.linearVelocityX, jumpSpeed);
-        }
-        else if (KeyCode.TryParse(downKey.ToString().ToUpper(), out KeyCode downButton))
-        {
-            if (Input.GetKeyDown(downButton)&& !isGrounded)
-            {
-                float increment = verticalInput * acceleration;
-                body.linearVelocity = new Vector2(body.linearVelocityX + increment, -jumpSpeed / 2);
-            }
-        }
-    }
-
-    void GetInput()
-    {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        moveInput = move.ReadValue<Vector2>();
     }
 
     void FixedUpdate()
@@ -69,27 +113,27 @@ public class PlayerMovement : MonoBehaviour
     }
     void MoveWithInput()
     {
-        if (Mathf.Abs(horizontalInput) > 0)
+        if (Mathf.Abs(moveInput.x) > 0)
         {
-            float increment = horizontalInput * acceleration;
-            float newSpeed = Mathf.Clamp(body.linearVelocityX + increment, -groundSpeed, groundSpeed);
-            body.linearVelocity = new Vector2(newSpeed, body.linearVelocityY);
+            float targetSpeed = moveInput.x * groundSpeed;
+            smoothedSpeed = Mathf.SmoothDamp(body.linearVelocityX, targetSpeed, ref currentSpeed, acceleration);
+            body.linearVelocity = new Vector2(smoothedSpeed, body.linearVelocityY);
 
-            float direction = Mathf.Sign(horizontalInput);
+            float direction = Mathf.Sign(moveInput.x);
             transform.localScale = new Vector3(direction, 1, 1);
 
-            if(!isGrounded)
+            if (!isGrounded)
             {
-                float airIncrement = horizontalInput * airAcceleration;
-                float newAirSpeed = Mathf.Clamp(body.linearVelocityX + airIncrement, -airSpeed, airSpeed);
-                body.linearVelocity = new Vector2(newAirSpeed, body.linearVelocityY);
+                float targetAirSpeed = moveInput.x * airSpeed;
+                smoothedSpeed = Mathf.SmoothDamp(body.linearVelocityX, targetAirSpeed, ref currentSpeed, airAcceleration);
+                body.linearVelocity = new Vector2(smoothedSpeed, body.linearVelocityY);
             }
         }
     }
 
     void ApplyFriction()
     {
-        if (isGrounded && horizontalInput == 0 && verticalInput <= 0)
+        if (isGrounded && moveInput.x == 0 && body.linearVelocityY <= 0)
         {
             body.linearVelocity *= groundDecay;
         }

@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 340880390}
   - component: {fileID: 340880391}
   - component: {fileID: 340880392}
+  - component: {fileID: 340880393}
   m_Layer: 0
   m_Name: MovementTest_Player
   m_TagString: Untagged
@@ -308,9 +309,68 @@ MonoBehaviour:
     m_Bits: 128
   groundDecay: 0.12
   isGrounded: 0
+  isPlayer1: 1
   horizontalInput: 0
   verticalInput: 0
-  downKey: 83
+  moveInput: {x: 0, y: 0}
+  downKey: 115
+  move:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6475602f-d3ba-4d87-be74-a4c4088e9133
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  jump:
+    m_Name: Jump
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 7d94937b-8e3f-4440-b022-4702da34aae1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  down:
+    m_Name: Down
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 11637ecc-ccaf-4d86-bd0f-a56392dff911
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+--- !u!114 &340880393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340880387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 47c1b05ce04f38f478363476e37e07b7, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player1
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &421021938
 GameObject:
   m_ObjectHideFlags: 0
